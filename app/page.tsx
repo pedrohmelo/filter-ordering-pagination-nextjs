@@ -12,10 +12,14 @@ import {
 } from "@/components/ui/card";
 import axios from "axios";
 
-export default async function Component() {
-  //fetch dos dados
+export default async function Component({
+  searchParams,
+}: {
+  searchParams: { search: string };
+}) {
   const response = await axios.get(
-    "https://apis.codante.io/api/orders-api/orders"
+    "https://apis.codante.io/api/orders-api/orders",
+    { params: { search: searchParams.search } }
   );
   const orders = response.data.data;
   console.log("orders > ", orders);
