@@ -1,8 +1,9 @@
 "use client";
 
 import { Search } from "lucide-react";
-import { Input } from "@/components/ui/input";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+
+import { Input } from "@/components/ui/input";
 
 export default function SearchInput() {
   const searchParams = useSearchParams();
@@ -11,9 +12,9 @@ export default function SearchInput() {
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     //agora jogando esse valor pra URL:
-    const params = new URLSearchParams();
-
+    const params = new URLSearchParams(searchParams);
     const searchString = event.currentTarget.value;
+
     if (searchString) {
       params.set("search", searchString);
     } else {

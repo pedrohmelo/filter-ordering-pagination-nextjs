@@ -1,7 +1,4 @@
-import FilterDropdown from "@/components/filter-dropdown";
-import OrdersTable from "@/components/orders-table";
-import Pagination from "@/components/pagination";
-import SearchInput from "@/components/search-input";
+import axios from "axios";
 
 import {
   Card,
@@ -10,16 +7,19 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import axios from "axios";
+import Pagination from "@/components/pagination";
+import SearchInput from "@/components/search-input";
+import OrdersTable from "@/components/orders-table";
+import FilterDropdown from "@/components/filter-dropdown";
 
-export default async function Component({
-  searchParams,
-}: {
-  searchParams: { search: string };
-}) {
+type ComponentProps = {
+  searchParams?: { search?: string; status?: string };
+};
+
+export default async function Component({ searchParams }: ComponentProps) {
   const response = await axios.get(
     "https://apis.codante.io/api/orders-api/orders",
-    { params: { search: searchParams.search } }
+    { params: { search: searchParams?.search, status: searchParams?.status } }
   );
   const orders = response.data.data;
   console.log("orders > ", orders);
